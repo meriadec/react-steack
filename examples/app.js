@@ -27,9 +27,20 @@ class App extends Component {
       height: 20 + (random(0, 10) * 10),
     }
 
+    const middle = items.length >= 2
+      ? Math.round(items.length / 2)
+      : 0
+
     const newItems = direction === 'before'
       ? [newItem, ...items]
-      : [...items, newItem]
+      : (direction === 'after'
+        ? [...items, newItem]
+        : [
+          ...items.slice(0, middle),
+          newItem,
+          ...items.slice(middle),
+        ]
+      )
 
     this.setState({ items: newItems })
 
@@ -78,6 +89,9 @@ class App extends Component {
         <p>
           <button onClick={this.addItem('before')}>
             {'add before'}
+          </button>
+          <button disabled={items.length < 2} onClick={this.addItem('middle')}>
+            {'add middle'}
           </button>
           <button onClick={this.addItem('after')}>
             {'add after'}
