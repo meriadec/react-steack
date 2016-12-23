@@ -191,7 +191,7 @@ class App extends Component {
                   cursor: 'pointer',
                   boxShadow: 'rgba(0, 0, 0, 0.3) 0 4px 12px',
                 }}
-               />
+              />
             ))}
           </Steack>
         </div>
