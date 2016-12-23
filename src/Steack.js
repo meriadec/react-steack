@@ -47,11 +47,7 @@ class Steack extends Component {
     delete this._heightCache[key]
   }
 
-  render () {
-
-    const {
-      heights,
-    } = this.state
+  getStyles = () => {
 
     const {
       children,
@@ -61,42 +57,56 @@ class Steack extends Component {
       zIndexBase,
     } = this.props
 
+    const {
+      heights,
+    } = this.state
+
     let totalOffset = 0
+
+    return Children.map(this.props.children, (child, i) => {
+
+      const measured = heights[child.key] !== undefined
+      const absoluteOffset = measured ? totalOffset : totalOffset - 100
+
+      const offset = reverse
+        ? -absoluteOffset
+        : absoluteOffset
+
+      if (measured) {
+        this._offsetCache[child.key] = offset
+      }
+
+      const motion = {
+        key: child.key,
+        data: child,
+        style: {
+          zIndex: children.length - (zIndexBase + i),
+          opacity: spring(measured ? 1 : 0),
+          offset: spring(offset, springConfig),
+        },
+      }
+
+      if (measured) {
+        this._offsetCache[child.key] = offset
+      }
+
+      totalOffset += measured ? heights[child.key] : 0
+
+      return motion
+
+    })
+  }
+
+  render () {
+
+    const {
+      reverse,
+      align,
+    } = this.props
 
     return (
       <TransitionMotion
-        styles={Children.map(children, (child, i) => {
-
-          const measured = heights[child.key] !== undefined
-          const absoluteOffset = measured ? totalOffset : totalOffset - 100
-
-          const offset = reverse
-            ? -absoluteOffset
-            : absoluteOffset
-
-          if (measured) {
-            this._offsetCache[child.key] = offset
-          }
-
-          const motion = {
-            key: child.key,
-            data: child,
-            style: {
-              zIndex: children.length - (zIndexBase + i),
-              opacity: spring(measured ? 1 : 0),
-              offset: spring(offset, springConfig),
-            },
-          }
-
-          if (measured) {
-            this._offsetCache[child.key] = offset
-          }
-
-          totalOffset += measured ? heights[child.key] : 0
-
-          return motion
-
-        })}
+        styles={this.getStyles}
       >
         {motions => (
           <div
