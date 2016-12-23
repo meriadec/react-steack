@@ -53,7 +53,6 @@ class Steack extends Component {
       children,
       reverse,
       springConfig,
-      align,
       zIndexBase,
     } = this.props
 
@@ -84,10 +83,6 @@ class Steack extends Component {
           opacity: spring(measured ? 1 : 0),
           offset: spring(offset, springConfig),
         },
-      }
-
-      if (measured) {
-        this._offsetCache[child.key] = offset
       }
 
       totalOffset += measured ? heights[child.key] : 0
