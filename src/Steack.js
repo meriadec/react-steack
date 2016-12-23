@@ -14,10 +14,13 @@ class Steack extends Component {
     reverse: PropTypes.bool,
     springConfig: PropTypes.object,
     align: PropTypes.string,
+    zIndexBase: PropTypes.number,
   }
 
   static defaultProps = {
     reverse: false,
+    align: 'right',
+    zIndexBase: 0,
   }
 
   state = {
@@ -55,13 +58,14 @@ class Steack extends Component {
       reverse,
       springConfig,
       align,
+      zIndexBase,
     } = this.props
 
     let totalOffset = 0
 
     return (
       <TransitionMotion
-        styles={Children.map(children, (child) => {
+        styles={Children.map(children, (child, i) => {
 
           const measured = heights[child.key] !== undefined
           const absoluteOffset = measured ? totalOffset : totalOffset - 100
@@ -78,6 +82,7 @@ class Steack extends Component {
             key: child.key,
             data: child,
             style: {
+              zIndex: children.length - (zIndexBase + i),
               opacity: spring(measured ? 1 : 0),
               offset: spring(offset, springConfig),
             },
@@ -106,6 +111,7 @@ class Steack extends Component {
                   onHeightReady={this.setHeight(m.key)}
                   onWillUnmount={this.clearCacheFor(m.key)}
                   style={{
+                    zIndex: m.style.zIndex,
                     transform: `translate3d(0, ${m.style.offset}px, 0)`,
                     position: 'absolute',
                     top: reverse ? 'auto' : 0,
