@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import random from 'lodash/random'
 import { generate } from 'shortid'
+import randomColor from 'randomcolor'
 
 import Steack from '../src/Steack'
 
@@ -23,6 +24,8 @@ class App extends Component {
     const newItem = {
       // unique key for map items (don't use array index)
       id: generate(),
+      // unique color, for demo purpose,
+      color: randomColor(),
       // arbitrary set a height to item, for demo purpose
       height: 20 + (random(0, 10) * 10),
     }
@@ -179,8 +182,8 @@ class App extends Component {
                 key={item.id}
                 onClick={this.removeItem(item)}
                 style={{
-                  background: '#ccc',
-                  border: '1px solid #aaa',
+                  background: item.color,
+                  border: '1px solid rgba(0, 0, 0, 0.3)',
                   height: item.height,
                   width: item.height * 3,
                   marginTop: reverse ? 20 : 0,
