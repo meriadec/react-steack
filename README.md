@@ -2,6 +2,8 @@
 
 Animate stacks with great performances
 
+![demo](demo.gif)
+
 [DEMO](https://meriadec.github.io/react-steack/)
 
 ## Install
