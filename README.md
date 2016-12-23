@@ -19,6 +19,10 @@ yarn add react-steack
 ## Usage
 
 ```javascript
+import Steack from 'react-steack'
+
+// ...
+
 <Steack
   reverse={true}
   align='right'
