@@ -4,7 +4,7 @@
   "description": "Animate stacks with great performances",
   "main": "lib/Steack.js",
   "scripts": {
-    "start": "webpack-dev-server --content-base examples/ --inline",
+    "start": "webpack-dev-server --https --content-base examples/ --inline",
     "build:examples": "BUILD_EXAMPLES=1 webpack",
     "build": "babel src -d lib",
     "lint": "eslint src examples",

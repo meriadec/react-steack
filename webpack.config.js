@@ -30,6 +30,8 @@ if (process.env.BUILD_EXAMPLES) {
   config.plugins.push(new webpack.DefinePlugin({
     'process.env.NODE_ENV': '"production"',
   }))
+} else {
+  config.devtool = 'sourcemap'
 }
 
 module.exports = config

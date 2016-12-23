@@ -12,3 +12,9 @@ body {
 p {
   margin: 0 0 10px 0;
 }
+
+.hero {
+  z-index: 1;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+}

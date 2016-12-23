@@ -88,79 +88,76 @@ class App extends Component {
           flexDirection: 'column',
         }}
       >
+        <div className='hero'>
+          <p>
+            <button onClick={this.addItem('before')}>
+              {'add before'}
+            </button>
+            <button disabled={items.length < 2} onClick={this.addItem('middle')}>
+              {'add middle'}
+            </button>
+            <button onClick={this.addItem('after')}>
+              {'add after'}
+            </button>
+          </p>
 
-        <p>
-          <button onClick={this.addItem('before')}>
-            {'add before'}
-          </button>
-          <button disabled={items.length < 2} onClick={this.addItem('middle')}>
-            {'add middle'}
-          </button>
-          <button onClick={this.addItem('after')}>
-            {'add after'}
-          </button>
-        </p>
+          <p>
+            <button
+              onClick={this.removeItem(items[0])}
+              disabled={!items.length}
+            >
+              {'remove first'}
+            </button>
+            <button
+              onClick={this.removeItem(items[items.length - 1])}
+              disabled={!items.length}
+            >
+              {'remove last'}
+            </button>
+          </p>
 
-        <p>
-          <button
-            onClick={this.removeItem(items[0])}
-            disabled={!items.length}
+          <p>
+            <label style={{ background: reverse ? 'cyan' : 'transparent' }}>
+              <input
+                type='checkbox'
+                checked={reverse}
+                onChange={this.toggleReverse}
+              />
+              {'reverse'}
+            </label>
+          </p>
+
+          <p>
+            <label style={{ background: align === 'left' ? 'cyan' : 'transparent' }}>
+              <input
+                type='checkbox'
+                checked={align === 'left'}
+                onChange={this.toggleAlign}
+              />
+              {'align left'}
+            </label>
+          </p>
+
+          <p>
+            <label style={{ background: bounce ? 'cyan' : 'transparent' }}>
+              <input
+                type='checkbox'
+                checked={bounce}
+                onChange={this.toggleBounce}
+              />
+              {'bounce'}
+            </label>
+          </p>
+
+          <span
+            style={{
+              background: 'yellow',
+              opacity: items.length ? 1 : 0,
+            }}
           >
-            {'remove first'}
-          </button>
-          <button
-            onClick={this.removeItem(items[items.length - 1])}
-            disabled={!items.length}
-          >
-            {'remove last'}
-          </button>
-        </p>
-
-        <p>
-
-          <label style={{ background: reverse ? 'cyan' : 'transparent' }}>
-            <input
-              type='checkbox'
-              checked={reverse}
-              onChange={this.toggleReverse}
-            />
-            {'reverse'}
-          </label>
-
-          {' - '}
-
-          <label style={{ background: bounce ? 'cyan' : 'transparent' }}>
-            <input
-              type='checkbox'
-              checked={bounce}
-              onChange={this.toggleBounce}
-            />
-            {'bounce'}
-          </label>
-
-        </p>
-
-        <p>
-
-          <label>
-            <input
-              type='checkbox'
-              checked={align === 'right'}
-              onChange={this.toggleAlign}
-            />
-            {`align ${align}`}
-          </label>
-
-        </p>
-
-        <span
-          style={{
-            background: 'yellow',
-            opacity: items.length ? 1 : 0,
-          }}
-        >
-          {'HINT: you can remove item by clicking on it'}
-        </span>
+            {'HINT: you can remove item by clicking on it'}
+          </span>
+        </div>
 
         <div
           style={{
