@@ -1,9 +1,4 @@
-import React, {
-  Component,
-  Children,
-  PropTypes,
-  cloneElement,
-} from 'react'
+import React, { Component, Children, PropTypes } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 
 import SteackItem from './SteackItem'
@@ -102,6 +97,16 @@ class Steack extends Component {
     return (
       <TransitionMotion
         styles={this.getStyles}
+        willLeave={(prev) => {
+          return {
+            opacity: spring(0),
+            offset: spring(
+              reverse
+                ? this._offsetCache[prev.key] + 100
+                : this._offsetCache[prev.key] - 100
+            ),
+          }
+        }}
       >
         {motions => (
           <div
@@ -117,6 +122,7 @@ class Steack extends Component {
                   onWillUnmount={this.clearCacheFor(m.key)}
                   style={{
                     zIndex: m.style.zIndex,
+                    opacity: m.style.opacity,
                     transform: `translate3d(0, ${m.style.offset}px, 0)`,
                     position: 'absolute',
                     top: reverse ? 'auto' : 0,
@@ -125,7 +131,7 @@ class Steack extends Component {
                     left: align === 'right' ? 'auto' : 0,
                   }}
                 >
-                  {cloneElement(m.data)}
+                  {m.data}
                 </SteackItem>
               )
             })}
