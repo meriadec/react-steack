@@ -6,10 +6,26 @@ import randomColor from 'randomcolor'
 
 import Steack from '../src/Steack'
 
+function generateItem () {
+  return {
+    // unique key for map items (don't use array index)
+    id: generate(),
+    // unique color, for demo purpose,
+    color: randomColor(),
+    // arbitrary set a height to item, for demo purpose
+    height: 20 + (random(0, 10) * 10),
+  }
+}
+
 class App extends Component {
 
   state = {
-    items: [],
+    items: [
+      generateItem(),
+      generateItem(),
+      generateItem(),
+      generateItem(),
+    ],
     reverse: false,
     align: 'right',
     bounce: false,
@@ -21,14 +37,7 @@ class App extends Component {
       items,
     } = this.state
 
-    const newItem = {
-      // unique key for map items (don't use array index)
-      id: generate(),
-      // unique color, for demo purpose,
-      color: randomColor(),
-      // arbitrary set a height to item, for demo purpose
-      height: 20 + (random(0, 10) * 10),
-    }
+    const newItem = generateItem()
 
     const middle = items.length >= 2
       ? Math.round(items.length / 2)
