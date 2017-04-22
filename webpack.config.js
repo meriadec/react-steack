@@ -12,10 +12,10 @@ const config = {
     filename: 'bundle.js',
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loaders: ['babel'],
+      loaders: ['babel-loader'],
     }],
   },
   plugins: [],
